@@ -9,4 +9,6 @@ function makeCounter() {
 }
 
 const counter = makeCounter();
-counter();
+counter(); // 1
+counter(); // 2
+counter(); // 3
