@@ -1,5 +1,6 @@
 import { findProduct } from '../store.js';
 import { getElement, getStorageItem } from '../utils.js';
+import addToCartDOM from './addToCartDom.js';
 
 const cartItemCountEl = getElement('.cart-item-count');
 const cartItemsEl = getElement('.cart-items');
@@ -16,6 +17,8 @@ export const addToCart = (id) => {
 		product = { ...product, amount: 1 };
 
 		cart = [...cart, product];
+
+		addToCartDOM(product);
 	} else {
 		const amount = increaseAmount(id);
 		const items = [...cartItemsEl.querySelectorAll('.cart-item-amount')];

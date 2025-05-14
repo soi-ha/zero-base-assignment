@@ -1,4 +1,4 @@
-import { setStorageItem } from './utils.js';
+import { getStorageItem, setStorageItem } from './utils.js';
 
 let store = getStorageItem('store');
 
