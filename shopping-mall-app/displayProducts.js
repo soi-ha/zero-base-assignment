@@ -25,6 +25,8 @@ const display = (products, element, filters) => {
 		})
 		.join('');
 
+	if (filters) return;
+
 	element.addEventListener('click', (e) => {
 		const parent = e.target.parentElement;
 		if (parent.classList.contains('product-cart-btn')) {
