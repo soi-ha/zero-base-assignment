@@ -1,6 +1,7 @@
 import { findProduct } from '../store.js';
-import { getElement, getStorageItem } from '../utils.js';
+import { formatPrice, getElement, getStorageItem, setStorageItem } from '../utils.js';
 import addToCartDOM from './addToCartDom.js';
+import { openCart } from './toggleCart.js';
 
 const cartItemCountEl = getElement('.cart-item-count');
 const cartItemsEl = getElement('.cart-items');
@@ -25,7 +26,21 @@ export const addToCart = (id) => {
 		const itemEl = items.find((value) => value.dataset.id === id);
 		itemEl.textContent = amount;
 	}
+
+	displayCartItemCount();
+
+	displayCartTotal();
+
+	setStorageItem('cart', cart);
+
+	openCart();
 };
+
+function displayCartItemsDOM() {
+	cart.forEach((cartItem) => {
+		addToCartDOM(cartItem);
+	});
+}
 
 function displayCartItemCount() {
 	const amount = cart.reduce((acc, curr) => {
@@ -100,5 +115,21 @@ function setupCartFunctionality() {
 				parent.previousElementSibling.textContent = newAmount;
 			}
 		}
+
+		displayCartItemCount();
+		displayCartTotal();
+		setStorageItem('cart', cart);
 	});
 }
+
+const init = () => {
+	displayCartItemCount();
+
+	displayCartTotal();
+
+	displayCartItemsDOM();
+
+	setupCartFunctionality();
+};
+
+init();
