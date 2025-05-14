@@ -46,11 +46,11 @@ export default {
 			change,
 		};
 	},
-	methods: {
-		change(event) {
-			this.$emit('input', event.target.value);
-		},
-	},
+	// methods: {
+	// 	change(event) {
+	// 		this.$emit('input', event.target.value);
+	// 	},
+	// },
 };
 </script>
 

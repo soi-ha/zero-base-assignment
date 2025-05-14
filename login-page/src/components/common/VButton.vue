@@ -25,11 +25,11 @@ export default {
 			clickEvent,
 		};
 	},
-	methods: {
-		clickEvent() {
-			this.$emit('click');
-		},
-	},
+	// methods: {
+	// 	clickEvent() {
+	// 		this.$emit('click');
+	// 	},
+	// },
 };
 </script>
 
