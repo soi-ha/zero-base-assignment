@@ -4,15 +4,13 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<!-- font awesome -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
 
-		<!-- css -->
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
 		<!-- navbar -->
-		<nav class="navbar">
+		<nav class="navbar page">
 			<div class="nav-center">
 				<!-- links -->
 				<div>
@@ -44,14 +42,14 @@
 				</div>
 			</div>
 		</nav>
+
 		<!-- hero -->
-		<section class="hero">
-			<div class="hero-container">
-				<h1 class="text-slanted">we sell something</h1>
-				<h3>sell everything - it is good</h3>
-				<a href="products.html" class="hero-btn">show now</a>
+		<section class="page-hero">
+			<div class="section-center">
+				<h3 class="page-hero-title">Home / About</h3>
 			</div>
 		</section>
+
 		<!-- sidebar -->
 		<div class="sidebar-overlay">
 			<aside class="sidebar">
@@ -100,34 +98,22 @@
 				</footer>
 			</aside>
 		</div>
-		<!-- featured products -->
-		<section class="section featured">
+
+		<!-- about -->
+
+		<section class="section section-center about-page">
 			<div class="title">
-				<h2><span>/</span>featured</h2>
+				<h2><span>/</span> about page</h2>
 			</div>
-			<div class="featured-center section-center">
-				<h2 class="section-loading">loading...</h2>
-				<!-- single product -->
-				<!-- <article class="product">
-					<div class="product-container">
-						<img src="images/main-bcg.jpeg" class="product-img img" alt="" />
-						<div class="product-icons">
-							<a href="product.html?id=1" class="product-icon">
-								<i class="fas fa-search"></i>
-							</a>
-							<button class="product-cart-btn product-icon" data-id="1">
-								<i class="fas fa-shopping-cart"></i>
-							</button>
-						</div>
-					</div>
-					<footer>
-						<p class="product-name">name</p>
-						<h4 class="product-price">$13.00</h4>
-					</footer>
-				</article> -->
-			</div>
-			<a href="products.html" class="btn">all products</a>
+			<p class="about-text">
+				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit quis minima sequi dolor, similique ea facere
+				exercitationem atque vel culpa consectetur et expedita dolores sed. Ducimus accusamus corrupti cupiditate
+				explicabo. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit quis minima sequi dolor, similique ea
+				facere exercitationem atque vel culpa consectetur et expedita dolores sed. Ducimus accusamus corrupti cupiditate
+				explicabo.
+			</p>
 		</section>
-		<script type="module" src="script.js"></script>
+
+		<script type="module" src="./pages/about.js"></script>
 	</body>
 </html>
