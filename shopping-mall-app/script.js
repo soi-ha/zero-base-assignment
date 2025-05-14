@@ -3,6 +3,9 @@ import fetchProducts from './fetchProducts.js';
 import { setupStore } from './store.js';
 import { getElement } from './utils.js';
 
+import './toggleSidebar.js';
+import './cart/toggleCart.js';
+
 const init = async () => {
 	const products = await fetchProducts();
 
