@@ -4,6 +4,16 @@ const setStorageItem = (name, item) => {
 	localStorage.setItem(name, JSON.stringify(item));
 };
 
+const getStorageItem = (key) => {
+	let storageItem = localStorage.getItem(key);
+	if (storageItem) {
+		storageItem = JSON.parse(localStorage.getItem(key));
+	} else {
+		storageItem = [];
+	}
+	return storageItem;
+};
+
 const formatPrice = (price) => {
 	let formattedPrice = new Intl.NumberFormat('en-US', {
 		style: 'currency',
@@ -18,4 +28,4 @@ const getElement = (selection) => {
 	throw new Error('해당 요소가 존재하지 않습니다.');
 };
 
-export { productsUrl, setStorageItem, formatPrice, getElement };
+export { productsUrl, setStorageItem, formatPrice, getElement, getStorageItem };
