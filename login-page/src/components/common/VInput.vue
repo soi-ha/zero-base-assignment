@@ -38,19 +38,11 @@ export default {
 			default: '',
 		},
 	},
-	setup(props, { emit }) {
-		const change = (event) => {
-			emit('input', event.target.value);
-		};
-		return {
-			change,
-		};
+	methods: {
+		change(event) {
+			this.$emit('input', event.target.value);
+		},
 	},
-	// methods: {
-	// 	change(event) {
-	// 		this.$emit('input', event.target.value);
-	// 	},
-	// },
 };
 </script>
 

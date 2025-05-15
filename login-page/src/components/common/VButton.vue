@@ -17,19 +17,11 @@ export default {
 			default: 'contained', // contained, outlined
 		},
 	},
-	setup(props, { emit }) {
-		const clickEvent = () => {
-			emit('click');
-		};
-		return {
-			clickEvent,
-		};
+	methods: {
+		clickEvent() {
+			this.$emit('click');
+		},
 	},
-	// methods: {
-	// 	clickEvent() {
-	// 		this.$emit('click');
-	// 	},
-	// },
 };
 </script>
 
