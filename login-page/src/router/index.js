@@ -5,6 +5,7 @@ import HomeView from '../views/HomeView.vue';
 import SignInView from '@/views/SignInView.vue';
 import UserView from '@/views/UserView.vue';
 import UsersView from '@/views/UsersView.vue';
+import NotFound from '@/views/NotFound.vue';
 
 import { getRefreshToken } from '@/services/login';
 
@@ -49,6 +50,14 @@ const routes = [
 		path: '/signIn',
 		name: 'signIn',
 		component: SignInView,
+	},
+	{
+		path: '/notFound',
+		component: NotFound,
+	},
+	{
+		path: '*',
+		redirect: '/notFound',
 	},
 ];
 
