@@ -9,14 +9,14 @@
 			<v-input class="login-form__text" type="password" v-model="password" />
 		</label>
 		<v-button class="login-form__button" type="submit">로그인</v-button>
-		<v-button class="login-form__button" variant="outlined">회원가입</v-button>
+		<v-button class="login-form__button" variant="outlined" @click="test">회원가입</v-button>
 	</form>
 </template>
 
 <script>
 import VInput from '@/components/common/VInput.vue';
 import VButton from '@/components/common/VButton.vue';
-import { loginUser } from '@/services/login';
+import { loginUser, testAPI } from '@/services/login';
 
 export default {
 	name: 'login-form',
@@ -40,6 +40,9 @@ export default {
 			const result = loginUser(user);
 			console.log(result);
 			event.preventDefault();
+		},
+		test() {
+			testAPI();
 		},
 	},
 };
