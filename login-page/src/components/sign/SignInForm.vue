@@ -25,6 +25,7 @@
 <script>
 import VInput from '@/components/common/VInput.vue';
 import VButton from '@/components/common/VButton.vue';
+import { signInUser } from '@/services/sign';
 
 export default {
 	name: 'SignInForm',
@@ -49,6 +50,8 @@ export default {
 			event.preventDefault();
 			if (this.isError) return;
 			console.log('사용자', id, password);
+
+			signInUser({ id, password });
 		},
 	},
 };

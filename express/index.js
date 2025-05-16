@@ -1,5 +1,3 @@
-console.log('🛠️ 서버 스크립트가 로드되었습니다');
-
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -7,8 +5,37 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req, res) => {
-	res.send('API 요청 성공');
+const userInfo = [];
+
+app.post('/login', (req, res) => {
+	// body id, password
+	const { id, password } = req.body;
+	const userIndex = userInfo.findIndex((item) => item.id === id);
+
+	if (userIndex > -1) {
+		// id 있음
+		if (userInfo[userIndex].password === password) {
+			//password 있음
+			res.status(200).send('로그인 성공');
+			return;
+		}
+	}
+	res.status(500).send('로그인 실패');
+});
+
+app.post('/signIn', (req, res) => {
+	// body id, password
+	const { id, password } = req.body;
+	console.log(id, password);
+
+	if (userInfo.findIndex((item) => item.id === id) > -1) {
+		res.status(500).send('회원가입 실패');
+		return;
+	}
+
+	userInfo.push({ id, password });
+	console.log('userInfo: ', userInfo);
+	res.send('회원가입 성공');
 });
 
 const port = 3000;
