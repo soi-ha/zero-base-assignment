@@ -1,23 +1,22 @@
 <template>
-	<div class="login-view">
-		<img src="@/assets/imgs/wadiz.png" alt="로고" />
-		<login-form class="form" />
+	<div class="sign-in-view">
+		<h2>회원가입</h2>
+		<sign-in-form class="form" />
 	</div>
 </template>
 
 <script>
-import LoginForm from '@/components/login/LoginForm.vue';
-
+import SignInForm from '@/components/sign/SignInForm.vue';
 export default {
-	name: 'login-view',
+	name: 'SignInView',
 	components: {
-		LoginForm,
+		SignInForm,
 	},
 };
 </script>
 
 <style lang="scss" scoped>
-.login-view {
+.sign-in-view {
 	width: 100%;
 	height: 100vh;
 	display: flex;

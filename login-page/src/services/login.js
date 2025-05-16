@@ -1,21 +1,23 @@
-const userInfo = [
-	{
-		id: 'dinnerKang',
-		password: '1234',
-	},
-];
+import axios from './axios/axios';
+import authAxios from './axios/authAxios';
+import router from '@/router';
+import store from '@/store';
 
 export const loginUser = async (user) => {
-	const findUser = userInfo.find((item) => item.id === user.id);
-	console.log(findUser);
-
-	if (findUser) {
-		if (findUser.password === user.password) {
-			return '로그인 성공';
-		} else {
-			return '비밀번호가 틀렸습니다.';
-		}
-	} else {
-		return '로그인 실패';
+	try {
+		const { data } = await axios.post('/login', user);
+		store.commit('setLogin', data);
+		router.push('/');
+	} catch (error) {
+		console.log(error);
+	}
+};
+export const refreshToken = async () => {
+	try {
+		const { data } = await authAxios.get('/refreshToken');
+		console.log('refreshToken', data);
+		store.commit('setAccessToken', data.accessToken);
+	} catch (error) {
+		console.log(error);
 	}
 };

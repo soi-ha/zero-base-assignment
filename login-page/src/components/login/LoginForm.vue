@@ -9,7 +9,9 @@
 			<v-input class="login-form__text" type="password" v-model="password" />
 		</label>
 		<v-button class="login-form__button" type="submit">로그인</v-button>
-		<v-button class="login-form__button" variant="outlined">회원가입</v-button>
+		<router-link to="/signIn">
+			<v-button class="login-form__button" variant="outlined">회원가입</v-button>
+		</router-link>
 	</form>
 </template>
 
@@ -56,7 +58,8 @@ export default {
 
 	&__text,
 	&__button,
-	label {
+	label,
+	a {
 		width: 100%;
 	}
 	.social-login {
