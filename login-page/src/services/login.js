@@ -1,22 +1,27 @@
+import Vue from 'vue';
+
 import axios from './axios/axios';
 import authAxios from './axios/authAxios';
 import router from '@/router';
-import store from '@/store';
+// import store from '@/store';
 
 export const loginUser = async (user) => {
 	try {
 		const { data } = await axios.post('/login', user);
-		store.commit('setLogin', data);
+		Vue.$cookies.set('accessToken', data.accessToken, '10m');
+		Vue.$cookies.set('refreshToken', data.refreshToken, '20m');
+
+		// store.commit('setLogin', data);
 		router.push('/');
 	} catch (error) {
 		console.log(error);
 	}
 };
-export const refreshToken = async () => {
+export const getRefreshToken = async () => {
 	try {
 		const { data } = await authAxios.get('/refreshToken');
-		console.log('refreshToken', data);
-		store.commit('setAccessToken', data.accessToken);
+		Vue.$cookies.set('accessToken', data.accessToken, '10m');
+		// store.commit('setAccessToken', data.accessToken);
 	} catch (error) {
 		console.log(error);
 	}

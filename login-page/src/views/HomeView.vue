@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { getUserInfo } from '@/services/sign';
+import { getUserInfoList } from '@/services/sign';
 import VButton from '../components/common/VButton.vue';
 
 export default {
@@ -18,7 +18,7 @@ export default {
 	},
 	methods: {
 		clickInfo() {
-			getUserInfo();
+			getUserInfoList();
 		},
 	},
 };
