@@ -21,7 +21,7 @@ app.post('/login', (req, res) => {
 			//password 있음
 			res.status(200).json({
 				msg: '로그인 성공',
-				accessToken: jwt.sign({ uerId: id }, privateKey),
+				accessToken: jwt.sign({ userId: id }, privateKey),
 			});
 			return;
 		}

@@ -1,9 +1,12 @@
 import axios from './axios';
+import router from '@/router';
+import store from '@/store';
 
 export const loginUser = async (user) => {
 	try {
-		const data = await axios.post('/login', user);
-		console.log(data);
+		const { data } = await axios.post('/login', user);
+		store.commit('setLogin', data.accessToken);
+		router.push('/');
 	} catch (error) {
 		console.log(error);
 	}
