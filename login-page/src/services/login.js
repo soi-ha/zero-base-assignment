@@ -2,7 +2,8 @@ import axios from './axios';
 
 export const loginUser = async (user) => {
 	try {
-		await axios.post('/login', user);
+		const data = await axios.post('/login', user);
+		console.log(data);
 	} catch (error) {
 		console.log(error);
 	}
