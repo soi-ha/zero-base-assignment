@@ -3,7 +3,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import SignInView from '@/views/SignInView.vue';
+import UserView from '@/views/UserView.vue';
+import UsersView from '@/views/UsersView.vue';
+
 import { getRefreshToken } from '@/services/login';
+
 // import store from '@/store';
 
 Vue.use(VueRouter);
@@ -30,6 +34,16 @@ const routes = [
 		// this generates a separate chunk (login.[hash].js) for this route
 		// which is lazy-loaded when the route is visited.
 		component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue'),
+	},
+	{
+		path: '/users',
+		name: 'users',
+		component: UsersView,
+	},
+	{
+		path: '/users/:userId',
+		name: 'users',
+		component: UserView,
 	},
 	{
 		path: '/signIn',
