@@ -4,6 +4,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 const privateKey = 'secret';
+const refreshKey = 'refresh';
 
 app.use(express.json());
 app.use(cors());
@@ -27,6 +28,7 @@ app.post('/login', (req, res) => {
 			res.status(200).json({
 				msg: '로그인 성공',
 				accessToken: jwt.sign({ userId: id }, privateKey, { expiresIn: '10s' }),
+				refreshToken: jwt.sign({ userId: id }, refreshKey, { expiresIn: '10h' }),
 			});
 			return;
 		}
@@ -66,5 +68,21 @@ app.get('/userInfo', (req, res) => {
 	});
 });
 
+app.get('/refreshToken', (req, res) => {
+	const refreshToken = req.header('refresh-token');
+
+	jwt.verify(refreshToken, refreshKey, (err, decoded) => {
+		if (err) {
+			if (err.name === 'TokenExpiredError') return res.status(401).send('토큰 유효기간 만료');
+			res.status(500).send('에러');
+			return;
+		}
+		console.log('decoded', decoded);
+
+		res.status(200).json({
+			accessToken: jwt.sign({ userId: decoded.id }, privateKey, { expiresIn: '10s' }),
+		});
+	});
+});
 const port = 3000;
 app.listen(port, () => console.log(`${port}서버 실행 성공`));
