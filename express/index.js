@@ -8,7 +8,12 @@ const privateKey = 'secret';
 app.use(express.json());
 app.use(cors());
 
-const userInfo = [];
+const userInfo = [
+	{
+		id: '123',
+		password: '123',
+	},
+];
 
 app.post('/login', (req, res) => {
 	// body id, password
@@ -21,7 +26,7 @@ app.post('/login', (req, res) => {
 			//password 있음
 			res.status(200).json({
 				msg: '로그인 성공',
-				accessToken: jwt.sign({ userId: id }, privateKey),
+				accessToken: jwt.sign({ userId: id }, privateKey, { expiresIn: '10s' }),
 			});
 			return;
 		}
@@ -42,6 +47,23 @@ app.post('/signIn', (req, res) => {
 	userInfo.push({ id, password });
 	console.log('userInfo: ', userInfo);
 	res.send('회원가입 성공');
+});
+
+app.get('/userInfo', (req, res) => {
+	const accessToken = req.header('access-token');
+	if (!accessToken) {
+		return res.status(401).send('토큰이 제공되지 않았습니다.');
+	}
+	jwt.verify(accessToken, privateKey, (err, decoded) => {
+		if (err) {
+			if (err.name === 'TokenExpiredError') return res.status(401).send('토큰 유효기간 만료');
+			res.status(500).send('error!!');
+			return;
+		}
+		res.status(200).json({
+			userInfo,
+		});
+	});
 });
 
 const port = 3000;
