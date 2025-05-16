@@ -9,14 +9,16 @@
 			<v-input class="login-form__text" type="password" v-model="password" />
 		</label>
 		<v-button class="login-form__button" type="submit">로그인</v-button>
-		<v-button class="login-form__button" variant="outlined" @click="test">회원가입</v-button>
+		<router-link to="/signIn">
+			<v-button class="login-form__button" variant="outlined">회원가입</v-button>
+		</router-link>
 	</form>
 </template>
 
 <script>
 import VInput from '@/components/common/VInput.vue';
 import VButton from '@/components/common/VButton.vue';
-import { loginUser, testAPI } from '@/services/login';
+import { loginUser } from '@/services/login';
 
 export default {
 	name: 'login-form',
@@ -41,9 +43,6 @@ export default {
 			console.log(result);
 			event.preventDefault();
 		},
-		test() {
-			testAPI();
-		},
 	},
 };
 </script>
@@ -59,7 +58,8 @@ export default {
 
 	&__text,
 	&__button,
-	label {
+	label,
+	a {
 		width: 100%;
 	}
 	.social-login {
