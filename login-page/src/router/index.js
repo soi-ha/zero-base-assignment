@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import SignInView from '@/views/SignInView.vue';
 
-import store from '@/store';
+// import store from '@/store';
 
 Vue.use(VueRouter);
 
@@ -12,12 +12,12 @@ const routes = [
 		path: '/',
 		name: 'home',
 		component: HomeView,
-		beforeEnter: (to, from, next) => {
-			const isLogin = store.getters.isLogin;
-			if (isLogin) return next();
-			alert('로그인을 해야 합니다.');
-			return next('/login');
-		},
+		// beforeEnter: (to, from, next) => {
+		// 	const isLogin = store.getters.isLogin;
+		// 	if (isLogin) return next();
+		// 	alert('로그인을 해야 합니다.');
+		// 	return next('/login');
+		// },
 	},
 	{
 		path: '/login',
