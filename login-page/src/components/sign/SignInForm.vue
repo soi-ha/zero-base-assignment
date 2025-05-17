@@ -25,7 +25,7 @@
 <script>
 import VInput from '@/components/common/VInput.vue';
 import VButton from '@/components/common/VButton.vue';
-import { signInUser } from '@/services/sign';
+import { signInFirebawse, getUserInFirebase } from '@/services/sign';
 import { reactive } from 'vue';
 
 export default {
@@ -50,8 +50,10 @@ export default {
 			event.preventDefault();
 			if (user.isError) return;
 			console.log('사용자:', id, password);
-			signInUser({ id, password });
+			// signInUser({ id, password });
+			signInFirebawse();
 		};
+		getUserInFirebase();
 
 		return {
 			user,
