@@ -1,20 +1,20 @@
 <template>
-	<form class="sign-in-form" @submit="clickSignIn(id, password, $event)">
+	<form class="sign-in-form" @submit="clickSignIn(user.id, user.password, $event)">
 		<label>
 			ID
-			<v-input class="sign-in-form__text" v-model="id" />
+			<v-input class="sign-in-form__text" v-model="user.id" />
 		</label>
 		<label>
 			Password
-			<v-input class="sign-in-form__text" type="password" v-model="password" :isError="isError" />
+			<v-input class="sign-in-form__text" type="password" v-model="user.password" :isError="isError" />
 		</label>
 		<label>
 			Confirm Password
 			<v-input
 				class="sign-in-form__text"
 				type="password"
-				v-model="confirmPassword"
-				:isError="isError"
+				v-model="user.confirmPassword"
+				:isError="user.isError"
 				error-msg="비밀번호가 다릅니다."
 			/>
 		</label>
@@ -25,7 +25,8 @@
 <script>
 import VInput from '@/components/common/VInput.vue';
 import VButton from '@/components/common/VButton.vue';
-import { signInUser } from '@/services/sign';
+import { signInFirebawse, getUserInFirebase } from '@/services/sign';
+import { reactive } from 'vue';
 
 export default {
 	name: 'SignInForm',
@@ -33,27 +34,54 @@ export default {
 		VInput,
 		VButton,
 	},
-	data() {
-		return {
+	setup() {
+		const user = reactive({
 			id: '',
 			password: '',
 			confirmPassword: '',
 			isError: false,
+		});
+
+		const checkPassword = () => {
+			user.isError = user.password !== user.confirmPassword;
+		};
+
+		const clickSignIn = (id, password, event) => {
+			event.preventDefault();
+			if (user.isError) return;
+			console.log('사용자:', id, password);
+			// signInUser({ id, password });
+			signInFirebawse(id, password);
+		};
+		getUserInFirebase();
+
+		return {
+			user,
+			checkPassword,
+			clickSignIn,
 		};
 	},
-	methods: {
-		checkPassword() {
-			console.log('checkPassword', this.password, this.confirmPassword);
-			this.isError = this.password !== this.confirmPassword;
-		},
-		clickSignIn(id, password, event) {
-			event.preventDefault();
-			if (this.isError) return;
-			console.log('사용자', id, password);
+	// data() {
+	// 	return {
+	// 		id: '',
+	// 		password: '',
+	// 		confirmPassword: '',
+	// 		isError: false,
+	// 	};
+	// },
+	// methods: {
+	// 	checkPassword() {
+	// 		console.log('checkPassword', this.password, this.confirmPassword);
+	// 		this.isError = this.password !== this.confirmPassword;
+	// 	},
+	// 	clickSignIn(id, password, event) {
+	// 		event.preventDefault();
+	// 		if (this.isError) return;
+	// 		console.log('사용자', id, password);
 
-			signInUser({ id, password });
-		},
-	},
+	// 		signInUser({ id, password });
+	// 	},
+	// },
 };
 </script>
 

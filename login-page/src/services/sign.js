@@ -1,6 +1,7 @@
 import axios from './axios/axios';
 import authAxios from './axios/authAxios';
 import router from '@/router';
+import { getDatabase, ref, push, onValue, query, orderByChild, equalTo } from 'firebase/database';
 
 export const signInUser = async (data) => {
 	try {
@@ -10,6 +11,26 @@ export const signInUser = async (data) => {
 	} catch (error) {
 		console.log(error);
 	}
+};
+
+export const signInFirebawse = (id, password) => {
+	const db = getDatabase();
+	push(ref(db, 'users/'), {
+		username: id,
+		password,
+	});
+};
+
+export const getUserInFirebase = (id = 'soha') => {
+	const db = getDatabase();
+	const userRef = ref(db, 'users/');
+	const queryRef = query(userRef, orderByChild('username'), equalTo(id));
+
+	onValue(queryRef, (snapshot) => {
+		const data = snapshot.val();
+		console.log('getUserInFirebase', data);
+		// updateStarCount(postElement, data);
+	});
 };
 
 export const getUserInfoList = async () => {
