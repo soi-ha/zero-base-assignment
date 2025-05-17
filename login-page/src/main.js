@@ -3,6 +3,12 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import VueCookies from 'vue-cookies';
+import { initializeApp } from 'firebase/app';
+
+import firebaseKey from './firebaseKey';
+
+// Initialize Firebase
+initializeApp(firebaseKey);
 
 Vue.config.productionTip = false;
 Vue.use(VueCookies);
