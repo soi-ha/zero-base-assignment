@@ -7,19 +7,27 @@
 </template>
 
 <script>
-import { getUserInfoList } from '@/services/sign';
+import { getUserInfo } from '@/services/sign';
 import VButton from '../components/common/VButton.vue';
 
 export default {
 	name: 'HomeView',
 	components: { VButton },
-	created() {
-		console.log('HomeView');
+	setup() {
+		const clickInfo = () => {
+			getUserInfo();
+		};
+		return {
+			clickInfo,
+		};
 	},
-	methods: {
-		clickInfo() {
-			getUserInfoList();
-		},
-	},
+	// created() {
+	// 	console.log('HomeView');
+	// },
+	// methods: {
+	// 	clickInfo() {
+	// 		getUserInfo();
+	// 	},
+	// },
 };
 </script>
