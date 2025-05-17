@@ -1,7 +1,7 @@
 import axios from './axios/axios';
 import authAxios from './axios/authAxios';
 import router from '@/router';
-import { getDatabase, ref, set, onValue } from 'firebase/database';
+import { getDatabase, ref, push, onValue, query, orderByChild, equalTo } from 'firebase/database';
 
 export const signInUser = async (data) => {
 	try {
@@ -13,32 +13,24 @@ export const signInUser = async (data) => {
 	}
 };
 
-export const signInFirebawse = () => {
+export const signInFirebawse = (id, password) => {
 	const db = getDatabase();
-	// push(ref(db, 'users/'), {
-	// 	username: id,
-	// 	password,
-	// });
-	set(ref(db, 'users/' + 1), {
-		username: 'soha',
-		email: '123',
+	push(ref(db, 'users/'), {
+		username: id,
+		password,
 	});
 };
 
-export const getUserInFirebase = () => {
+export const getUserInFirebase = (id = 'soha') => {
 	const db = getDatabase();
-	const starCountRef = ref(db, 'users/');
-	onValue(starCountRef, (snapshot) => {
+	const userRef = ref(db, 'users/');
+	const queryRef = query(userRef, orderByChild('username'), equalTo(id));
+
+	onValue(queryRef, (snapshot) => {
 		const data = snapshot.val();
 		console.log('getUserInFirebase', data);
+		// updateStarCount(postElement, data);
 	});
-	// const queryRef = query(userRef, orderByChild('username'), equalTo(id));
-
-	// onValue(queryRef, (snapshot) => {
-	//   const data = snapshot.val();
-	//   console.log('getUserInFirebase', data);
-	//   // updateStarCount(postElement, data);
-	// });
 };
 
 export const getUserInfoList = async () => {

@@ -51,7 +51,7 @@ export default {
 			if (user.isError) return;
 			console.log('사용자:', id, password);
 			// signInUser({ id, password });
-			signInFirebawse();
+			signInFirebawse(id, password);
 		};
 		getUserInFirebase();
 
