@@ -8,6 +8,7 @@
 			Password
 			<v-input class="login-form__text" type="password" v-model="password" />
 		</label>
+		<login-google />
 		<v-button class="login-form__button" type="submit">로그인</v-button>
 		<router-link to="/signIn">
 			<v-button class="login-form__button" variant="outlined">회원가입</v-button>
@@ -19,6 +20,7 @@
 import VInput from '@/components/common/VInput.vue';
 import VButton from '@/components/common/VButton.vue';
 import { loginUser } from '@/services/login';
+import LoginGoogle from './LoginGoogle.vue';
 import { ref } from 'vue';
 
 export default {
@@ -26,6 +28,7 @@ export default {
 	components: {
 		VInput,
 		VButton,
+		LoginGoogle,
 	},
 	setup() {
 		const id = ref('');
@@ -47,24 +50,6 @@ export default {
 			clickLogin,
 		};
 	},
-	// data() {
-	// 	return {
-	// 		id: '',
-	// 		password: '',
-	// 	};
-	// },
-	// methods: {
-	// 	clickLogin(event) {
-	// 		console.log('click');
-	// 		const user = {
-	// 			id: this.id,
-	// 			password: this.password,
-	// 		};
-	// 		const result = loginUser(user);
-	// 		console.log(result);
-	// 		event.preventDefault();
-	// 	},
-	// },
 };
 </script>
 

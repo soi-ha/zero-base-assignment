@@ -2,6 +2,7 @@ import axios from './axios/axios';
 import authAxios from './axios/authAxios';
 import router from '@/router';
 import { getDatabase, ref, push, onValue, query, orderByChild, equalTo } from 'firebase/database';
+import { jwtDecode } from 'jwt-decode';
 
 export const signInUser = async (data) => {
 	try {
@@ -46,6 +47,22 @@ export const getUserInfo = async (id) => {
 	try {
 		const { data } = await authAxios.get(`/userInfo/${id}`);
 		return data;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+export const getGoogleUser = async (idToken) => {
+	try {
+		const { sub, email, name } = jwtDecode(idToken);
+		console.log(sub, email, name);
+
+		await axios.post('/signIn', {
+			id: sub,
+			email: email,
+			name: name,
+			isSocial: true,
+		});
 	} catch (err) {
 		console.log(err);
 	}

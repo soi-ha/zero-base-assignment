@@ -9,16 +9,7 @@ const refreshKey = 'refresh';
 app.use(express.json());
 app.use(cors());
 
-const userInfo = [
-	{
-		id: '123',
-		password: '123',
-	},
-	{
-		id: 'soha',
-		password: '1234',
-	},
-];
+const userInfo = [];
 
 app.post('/login', (req, res) => {
 	// body id, password
@@ -34,6 +25,7 @@ app.post('/login', (req, res) => {
 				accessToken: jwt.sign({ userId: id }, privateKey, { expiresIn: '10m' }),
 				refreshToken: jwt.sign({ userId: id }, refreshKey, { expiresIn: '20m' }),
 			});
+			console.log('로그인 성공');
 			return;
 		}
 	}
@@ -42,8 +34,19 @@ app.post('/login', (req, res) => {
 
 app.post('/signIn', (req, res) => {
 	// body id, password
-	const { id, password } = req.body;
-	console.log(id, password);
+	const { id, password, isSocial, name, email } = req.body;
+	console.log(id, password, isSocial, name, email);
+
+	if (isSocial) {
+		userInfo.push({
+			id,
+			name,
+			email,
+			isSocial,
+		});
+		res.send('회원가입 성공');
+		return;
+	}
 
 	if (userInfo.findIndex((item) => item.id === id) > -1) {
 		res.status(500).send('회원가입 실패');

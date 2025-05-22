@@ -3,7 +3,7 @@ import Vue from 'vue';
 import axios from './axios/axios';
 import authAxios from './axios/authAxios';
 import router from '@/router';
-// import store from '@/store';
+import store from '@/store';
 
 export const loginUser = async (user) => {
 	try {
@@ -17,6 +17,15 @@ export const loginUser = async (user) => {
 		console.log(error);
 	}
 };
+
+export const googleLogin = (idToken) => {
+	socialLogin(idToken);
+};
+
+export const socialLogin = (token) => {
+	store.commit('setLogin', { accessToken: token, refreshToken: '' });
+};
+
 export const getRefreshToken = async () => {
 	try {
 		const { data } = await authAxios.get('/refreshToken');
