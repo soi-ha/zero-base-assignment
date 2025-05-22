@@ -27,7 +27,7 @@
 import VInput from '@/components/common/VInput.vue';
 import VButton from '@/components/common/VButton.vue';
 import { signInFirebawse, getUserInFirebase, getGoogleUser } from '@/services/sign';
-import { reactive } from 'vue';
+import { reactive, getCurrentInstance } from 'vue';
 
 export default {
 	name: 'SignInForm',
@@ -35,7 +35,9 @@ export default {
 		VInput,
 		VButton,
 	},
-	setup(props, { root }) {
+	setup() {
+		const { proxy } = getCurrentInstance();
+
 		const user = reactive({
 			id: '',
 			password: '',
@@ -56,8 +58,10 @@ export default {
 		};
 
 		const clickGoogle = async () => {
-			await getGoogleUser();
-			root.$router.push('/login');
+			const token = proxy.$cookies.get('googleLoginToken');
+			if (!token) return;
+			await getGoogleUser(token);
+			proxy.$router.push('/login');
 		};
 
 		getUserInFirebase();

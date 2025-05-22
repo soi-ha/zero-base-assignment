@@ -25,6 +25,7 @@ app.post('/login', (req, res) => {
 				accessToken: jwt.sign({ userId: id }, privateKey, { expiresIn: '10m' }),
 				refreshToken: jwt.sign({ userId: id }, refreshKey, { expiresIn: '20m' }),
 			});
+			console.log('로그인 성공');
 			return;
 		}
 	}

@@ -18,12 +18,8 @@ export const loginUser = async (user) => {
 	}
 };
 
-export const googleLogin = async () => {
-	const googleAuth = await window.gapi.auth2.getAuthInstance();
-	await googleAuth.signIn();
-	const googleUser = await googleAuth.currentUser.get().getAuthResponse();
-	const token = googleUser.id_token;
-	socialLogin(token);
+export const googleLogin = (idToken) => {
+	socialLogin(idToken);
 };
 
 export const socialLogin = (token) => {
