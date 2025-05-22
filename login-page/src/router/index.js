@@ -9,7 +9,7 @@ import NotFound from '@/views/NotFound.vue';
 
 import { getRefreshToken } from '@/services/login';
 
-// import store from '@/store';
+import store from '@/store';
 
 Vue.use(VueRouter);
 
@@ -69,8 +69,8 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
 	console.log('router beforeEach');
-	const accessToken = Vue.$cookies.get('accessToken');
-	const refreshToken = Vue.$cookies.get('refreshToken');
+	const accessToken = Vue.$cookies.get('accessToken') || store.state.accessToken;
+	const refreshToken = Vue.$cookies.get('refreshToken') || store.state.accessToken;
 
 	if (to.meta.requireAuth && !accessToken && refreshToken) {
 		await getRefreshToken();

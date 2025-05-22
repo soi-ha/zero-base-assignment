@@ -50,3 +50,24 @@ export const getUserInfo = async (id) => {
 		console.log(err);
 	}
 };
+
+export const getGoogleUser = async () => {
+	try {
+		const googleAuth = window.gapi.auth2.getAuthInstance();
+		await googleAuth.signIn();
+		const googleUser = await googleAuth.currentUser.get();
+		const profile = await googleUser.getBasicProfile();
+		console.log(googleUser.getBasicProfile().getId());
+		console.log(googleUser.getBasicProfile().getEmail());
+		console.log(googleUser.getBasicProfile().getName());
+
+		await axios.post('/signIn', {
+			id: profile.getId(),
+			email: profile.getEmail(),
+			name: profile.getName(),
+			isSocial: true,
+		});
+	} catch (err) {
+		console.log(err);
+	}
+};

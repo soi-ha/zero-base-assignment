@@ -19,13 +19,14 @@
 			/>
 		</label>
 		<v-button type="submit" class="sign-in-form__button" @click="checkPassword()">회원가입</v-button>
+		<v-button class="sign-in-form__button" @click="clickGoogle">구글 회원가입</v-button>
 	</form>
 </template>
 
 <script>
 import VInput from '@/components/common/VInput.vue';
 import VButton from '@/components/common/VButton.vue';
-import { signInFirebawse, getUserInFirebase } from '@/services/sign';
+import { signInFirebawse, getUserInFirebase, getGoogleUser } from '@/services/sign';
 import { reactive } from 'vue';
 
 export default {
@@ -34,7 +35,7 @@ export default {
 		VInput,
 		VButton,
 	},
-	setup() {
+	setup(props, { root }) {
 		const user = reactive({
 			id: '',
 			password: '',
@@ -53,35 +54,21 @@ export default {
 			// signInUser({ id, password });
 			signInFirebawse(id, password);
 		};
+
+		const clickGoogle = async () => {
+			await getGoogleUser();
+			root.$router.push('/login');
+		};
+
 		getUserInFirebase();
 
 		return {
 			user,
 			checkPassword,
 			clickSignIn,
+			clickGoogle,
 		};
 	},
-	// data() {
-	// 	return {
-	// 		id: '',
-	// 		password: '',
-	// 		confirmPassword: '',
-	// 		isError: false,
-	// 	};
-	// },
-	// methods: {
-	// 	checkPassword() {
-	// 		console.log('checkPassword', this.password, this.confirmPassword);
-	// 		this.isError = this.password !== this.confirmPassword;
-	// 	},
-	// 	clickSignIn(id, password, event) {
-	// 		event.preventDefault();
-	// 		if (this.isError) return;
-	// 		console.log('사용자', id, password);
-
-	// 		signInUser({ id, password });
-	// 	},
-	// },
 };
 </script>
 
