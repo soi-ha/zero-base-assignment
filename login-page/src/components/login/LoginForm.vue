@@ -11,6 +11,7 @@
 		<div class="social-login">
 			<login-google />
 			<login-naver />
+			<login-kakao />
 		</div>
 		<v-button class="login-form__button" type="submit">로그인</v-button>
 		<router-link to="/signIn">
@@ -25,7 +26,9 @@ import VButton from '@/components/common/VButton.vue';
 import { loginUser } from '@/services/login';
 import LoginGoogle from './LoginGoogle.vue';
 import LoginNaver from './LoginNaver.vue';
+import LoginKakao from './LoginKakao.vue';
 import { ref } from 'vue';
+// import { useRouter, useRoute } from 'vue-router';
 
 export default {
 	name: 'login-form',
@@ -34,10 +37,12 @@ export default {
 		VButton,
 		LoginGoogle,
 		LoginNaver,
+		LoginKakao,
 	},
 	setup() {
 		const id = ref('');
 		const password = ref('');
+		// const { proxy } = getCurrentInstance();
 
 		const clickLogin = (event) => {
 			const user = {

@@ -41,6 +41,9 @@ export default {
 				proxy.$store.commit('setNaverInfo', naver);
 			};
 			naverInit();
+
+			window.Kakao.init('2cff8a40975772e550fba925cc4625f3');
+			window.Kakao.isInitialized();
 		});
 	},
 };

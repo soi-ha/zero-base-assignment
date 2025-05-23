@@ -22,15 +22,17 @@
 		<v-button class="sign-in-form__button" @click="clickGoogle">구글 회원가입</v-button>
 		<div id="naverIdLogin" ref="naverIdLogin" style="display: none"></div>
 		<v-button class="sign-in-form__button" @click="clickNaver">네이버 회원가입</v-button>
+		<v-button class="sign-in-form__button" @click="clickKakao">카카오 회원가입</v-button>
 	</form>
 </template>
 
 <script>
 import VInput from '@/components/common/VInput.vue';
 import VButton from '@/components/common/VButton.vue';
-import { signInFirebawse, getUserInFirebase, getGoogleUser } from '@/services/sign';
+import { signInFirebawse, getUserInFirebase, getGoogleUser, signInSocial } from '@/services/sign';
 import naverLogin from '@/helper/naverLogin';
 import { reactive, getCurrentInstance, onMounted, ref } from 'vue';
+import { getKakaoInfo } from '@/services/social';
 
 export default {
 	name: 'SignInForm',
@@ -77,6 +79,15 @@ export default {
 			}
 		};
 
+		const clickKakao = async () => {
+			console.log('kakao');
+			const result = await getKakaoInfo();
+			console.log(result);
+			const { id, email, name } = await getKakaoInfo();
+			await signInSocial(id, email, name);
+			proxy.$router.push('/login');
+		};
+
 		onMounted(() => {
 			naverLogin(false, true);
 		});
@@ -90,6 +101,7 @@ export default {
 			clickGoogle,
 			clickNaver,
 			naverIdLogin,
+			clickKakao,
 		};
 	},
 };
