@@ -8,7 +8,10 @@
 			Password
 			<v-input class="login-form__text" type="password" v-model="password" />
 		</label>
-		<login-google />
+		<div class="social-login">
+			<login-google />
+			<login-naver />
+		</div>
 		<v-button class="login-form__button" type="submit">로그인</v-button>
 		<router-link to="/signIn">
 			<v-button class="login-form__button" variant="outlined">회원가입</v-button>
@@ -21,6 +24,7 @@ import VInput from '@/components/common/VInput.vue';
 import VButton from '@/components/common/VButton.vue';
 import { loginUser } from '@/services/login';
 import LoginGoogle from './LoginGoogle.vue';
+import LoginNaver from './LoginNaver.vue';
 import { ref } from 'vue';
 
 export default {
@@ -29,6 +33,7 @@ export default {
 		VInput,
 		VButton,
 		LoginGoogle,
+		LoginNaver,
 	},
 	setup() {
 		const id = ref('');

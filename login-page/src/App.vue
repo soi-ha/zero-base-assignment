@@ -5,12 +5,14 @@
 </template>
 
 <script>
-import { onMounted } from 'vue';
+import { getCurrentInstance, onMounted } from 'vue';
 import Vue from 'vue';
+import naverLogin from './helper/naverLogin';
 
 export default {
 	name: 'App',
 	setup() {
+		const { proxy } = getCurrentInstance();
 		function handleCredentialResponse(response) {
 			const idToken = response.credential;
 			console.log('idToken', idToken);
@@ -33,6 +35,12 @@ export default {
 					callback: handleCredentialResponse,
 				});
 			};
+
+			const naverInit = () => {
+				const naver = naverLogin(false, false);
+				proxy.$store.commit('setNaverInfo', naver);
+			};
+			naverInit();
 		});
 	},
 };

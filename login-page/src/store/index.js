@@ -8,6 +8,7 @@ export default new Vuex.Store({
 	state: {
 		accessToken: '',
 		refreshToken: '',
+		naverInfo: {},
 	},
 	getters: {
 		isLogin(state) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
 		},
 		setAccessToken(state, payload) {
 			state.accessToken = payload;
+		},
+		setNaverInfo(state, payload) {
+			state.naverInfo = payload;
 		},
 	},
 	actions: {},

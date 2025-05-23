@@ -10,6 +10,7 @@ import NotFound from '@/views/NotFound.vue';
 import { getRefreshToken } from '@/services/login';
 
 import store from '@/store';
+import NaverAuth from '@/views/NaverAuth.vue';
 
 Vue.use(VueRouter);
 
@@ -50,6 +51,10 @@ const routes = [
 		path: '/signIn',
 		name: 'signIn',
 		component: SignInView,
+	},
+	{
+		path: '/naverAuth',
+		component: NaverAuth,
 	},
 	{
 		path: '/notFound',
