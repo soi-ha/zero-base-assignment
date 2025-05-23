@@ -13,19 +13,26 @@ const userInfo = [];
 
 app.post('/login', (req, res) => {
 	// body id, password
-	const { id, password } = req.body;
+	const { id, password, isSocial } = req.body;
 	const userIndex = userInfo.findIndex((item) => item.id === id);
 
 	if (userIndex > -1) {
-		// id 있음
-		if (userInfo[userIndex].password === password) {
-			//password 있음
+		if (isSocial) {
 			res.status(200).json({
 				msg: '로그인 성공',
 				accessToken: jwt.sign({ userId: id }, privateKey, { expiresIn: '10m' }),
 				refreshToken: jwt.sign({ userId: id }, refreshKey, { expiresIn: '20m' }),
 			});
-			console.log('로그인 성공');
+			return;
+		}
+		// ID는 있음.
+		if (userInfo[userIndex].password === password) {
+			// password 맞음
+			res.status(200).json({
+				msg: '로그인 성공',
+				accessToken: jwt.sign({ userId: id }, privateKey, { expiresIn: '10m' }),
+				refreshToken: jwt.sign({ userId: id }, refreshKey, { expiresIn: '20m' }),
+			});
 			return;
 		}
 	}

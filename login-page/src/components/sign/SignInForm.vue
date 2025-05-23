@@ -20,6 +20,8 @@
 		</label>
 		<v-button type="submit" class="sign-in-form__button" @click="checkPassword()">회원가입</v-button>
 		<v-button class="sign-in-form__button" @click="clickGoogle">구글 회원가입</v-button>
+		<div id="naverIdLogin" ref="naverIdLogin" style="display: none"></div>
+		<v-button class="sign-in-form__button" @click="clickNaver">네이버 회원가입</v-button>
 	</form>
 </template>
 
@@ -27,7 +29,8 @@
 import VInput from '@/components/common/VInput.vue';
 import VButton from '@/components/common/VButton.vue';
 import { signInFirebawse, getUserInFirebase, getGoogleUser } from '@/services/sign';
-import { reactive, getCurrentInstance } from 'vue';
+import naverLogin from '@/helper/naverLogin';
+import { reactive, getCurrentInstance, onMounted, ref } from 'vue';
 
 export default {
 	name: 'SignInForm',
@@ -44,6 +47,8 @@ export default {
 			confirmPassword: '',
 			isError: false,
 		});
+
+		const naverIdLogin = ref(null);
 
 		const checkPassword = () => {
 			user.isError = user.password !== user.confirmPassword;
@@ -64,6 +69,18 @@ export default {
 			proxy.$router.push('/login');
 		};
 
+		const clickNaver = () => {
+			// refs.naverIdLogin.firstChild.click();
+			const el = naverIdLogin.value;
+			if (el && el.firstChild) {
+				el.firstChild.click();
+			}
+		};
+
+		onMounted(() => {
+			naverLogin(false, true);
+		});
+
 		getUserInFirebase();
 
 		return {
@@ -71,6 +88,8 @@ export default {
 			checkPassword,
 			clickSignIn,
 			clickGoogle,
+			clickNaver,
+			naverIdLogin,
 		};
 	},
 };

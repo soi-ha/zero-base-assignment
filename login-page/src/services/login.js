@@ -5,16 +5,22 @@ import authAxios from './axios/authAxios';
 import router from '@/router';
 import store from '@/store';
 
-export const loginUser = async (user) => {
+export const loginUser = async (user, isSocial = false) => {
 	try {
-		const { data } = await axios.post('/login', user);
+		const info = {
+			...user,
+			isSocial,
+		};
+		const { data } = await axios.post('/login', info);
 		Vue.$cookies.set('accessToken', data.accessToken, '10m');
 		Vue.$cookies.set('refreshToken', data.refreshToken, '20m');
 
 		// store.commit('setLogin', data);
 		router.push('/');
-	} catch (error) {
-		console.log(error);
+		return data;
+	} catch (err) {
+		console.log(err);
+		return err;
 	}
 };
 
